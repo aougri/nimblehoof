@@ -1,7 +1,12 @@
 import discord
 import logging
-import os
+import json
 
+#JSON HANDLING
+config = open("config.json")
+data = json.load(config)
+
+#LOGGING
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 
 
@@ -14,7 +19,7 @@ class Bot(discord.Client):
 
 
 intents = discord.Intents.default()
-intents.message.content = True
+intents.message_content = True
 
 client = Bot(intents=intents)
-client.run(os.environ['TOKEN'], log_handler=handler)
+client.run(data["TOKEN"], log_handler=handler)
